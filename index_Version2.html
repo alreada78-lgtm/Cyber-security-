@@ -1,166 +1,213 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>cyber Z Q</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: 'Cairo', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #181c20;
-            color: #fff;
-        }
-        header {
-            background: #222;
-            padding: 30px 0 20px 0;
-            text-align: center;
-            border-bottom: 3px solid #3cf;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            color: #3cf;
-        }
-        nav {
-            margin: 20px 0 0 0;
-            text-align: center;
-        }
-        nav button {
-            background: #3cf;
-            color: #181c20;
-            border: none;
-            padding: 12px 28px;
-            margin: 0 10px;
-            border-radius: 24px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        nav button:hover {
-            background: #1e90ff;
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        section {
-            background: #24282d;
-            padding: 32px 24px;
-            border-radius: 18px;
-            margin-bottom: 32px;
-            box-shadow: 0 2px 16px rgba(60, 200, 255, 0.05);
-        }
-        .section-title {
-            color: #3cf;
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-        }
-        .topic-title {
-            color: #ffb300;
-            font-size: 1.3rem;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        .topic-content {
-            font-size: 1.1rem;
-            color: #e0e0e0;
-        }
-        .contact {
-            text-align: center;
-            margin: 40px 0 20px 0;
-        }
-        .contact a {
-            display: inline-block;
-            margin: 0 18px;
-            padding: 12px 28px;
-            background: linear-gradient(90deg, #3cf, #1e90ff);
-            color: #fff;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 10px rgba(60, 200, 255, 0.15);
-        }
-        .contact a:hover {
-            background: #222;
-            color: #3cf;
-            transform: scale(1.07);
-        }
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.6rem;
-            }
-            nav button {
-                padding: 10px 14px;
-                font-size: 1rem;
-                margin: 5px 0;
-            }
-            .container {
-                padding: 0 6px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>مكتبة إلكترونية حديثة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap');
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(120deg, #f7fafc 0%, #e3e6e8 100%);
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      color: #fff;
+      padding: 30px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 8px #e3e6e8;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 22px;
+      max-width: 800px;
+      margin: 30px auto 13px auto;
+      padding: 0 16px;
+    }
+    .category-box {
+      background: #fff;
+      color: #4e54c8;
+      border-radius: 18px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 22px 0;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #e3e6e880;
+      border: 2.5px solid #fff;
+      transition: background 0.22s, color 0.22s, border 0.22s;
+    }
+    .category-box.active, .category-box:hover {
+      background: #4e54c8;
+      color: #fff;
+      border-color: #8f94fb;
+    }
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin: 25px 0 15px 0;
+    }
+    .search-box input {
+      width: 340px;
+      padding: 12px 18px;
+      border-radius: 30px;
+      border: 1.5px solid #8f94fb;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .search-box input:focus {
+      border: 2.5px solid #4e54c8;
+    }
+    .books-section {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 28px;
+      padding: 30px 20px;
+    }
+    .book-card {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 3px 12px #e3e6e8b3;
+      padding: 25px 18px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .book-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 6px 24px #4e54c830;
+    }
+    .book-card h3 {
+      margin: 0 0 8px 0;
+      color: #4e54c8;
+      font-size: 1.15rem;
+    }
+    .book-card .category {
+      background: #e8e8fc;
+      color: #4e54c8;
+      padding: 4px 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      margin-bottom: 7px;
+    }
+    .book-card p {
+      margin: 0;
+      color: #555;
+      font-size: 0.98rem;
+    }
+    .no-results {
+      text-align: center;
+      width: 100%;
+      color: #ca3c3c;
+      font-size: 1.2rem;
+      padding: 60px 0 40px 0;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem;}
+      .categories-grid { grid-template-columns: 1fr 1fr; gap:10px;}
+      .search-box input { width: 95vw;}
+      .books-section { grid-template-columns: 1fr;}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>cyber Z Q</h1>
-        <nav>
-            <button onclick="showSection('section1')">قسم 1</button>
-            <button onclick="showSection('section2')">قسم 2</button>
-            <button onclick="showSection('section3')">قسم 3</button>
-        </nav>
-    </header>
-
-    <div class="container">
-        <!-- القسم 1 -->
-        <section id="section1">
-            <div class="section-title">قسم 1: الأمن السيبراني</div>
-            <div>
-                <h3 class="topic-title">عنوان الموضوع: حماية البيانات الشخصية</h3>
-                <div class="topic-content">
-                    يتناول هذا الموضوع كيفية الحفاظ على سرية بياناتك الشخصية على الإنترنت، وأهم النصائح لتأمين حساباتك من الاختراق، وأفضل الممارسات لتجنب التسريب والاختراقات.
-                </div>
-            </div>
-        </section>
-        <!-- القسم 2 -->
-        <section id="section2" style="display: none;">
-            <div class="section-title">قسم 2: البرمجة والتقنية</div>
-            <div>
-                <h3 class="topic-title">عنوان الموضوع: أساسيات تطوير المواقع</h3>
-                <div class="topic-content">
-                    في هذا الموضوع نشرح أساسيات برمجة وتطوير المواقع الإلكترونية، وأهم الأدوات واللغات المطلوبة للبدء في هذا المجال، مع نصائح عملية للمبتدئين.
-                </div>
-            </div>
-        </section>
-        <!-- القسم 3 -->
-        <section id="section3" style="display: none;">
-            <div class="section-title">قسم 3: أخبار ومقالات</div>
-            <div>
-                <h3 class="topic-title">عنوان الموضوع: أحدث أخبار الأمن السيبراني</h3>
-                <div class="topic-content">
-                    متابعة مستمرة لأحدث أخبار الأمن السيبراني والهجمات الإلكترونية العالمية، مع تحليلات سريعة لتأثيرها وكيفية الوقاية منها.
-                </div>
-            </div>
-        </section>
+  <header>
+    <h1>مكتبة إلكترونية حديثة</h1>
+    <div class="categories-grid" id="categoriesGrid">
+      <div class="category-box active" data-category="all">كل الكتب</div>
+      <div class="category-box" data-category="عام">كتب عامة</div>
+      <div class="category-box" data-category="ديني">كتب دينية</div>
+      <div class="category-box" data-category="فلسفي">كتب فلسفية</div>
+      <div class="category-box" data-category="علمي">كتب علمية</div>
     </div>
-
-    <div class="contact">
-        <a href="https://instagram.com/" target="_blank" rel="noopener">انستجرام</a>
-        <a href="https://t.me/" target="_blank" rel="noopener">تليجرام</a>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ابحث عن كتاب...">
     </div>
+  </header>
+  <main>
+    <section class="books-section" id="booksSection">
+      <!-- سيتم عرض الكتب هنا -->
+    </section>
+  </main>
+  <script>
+    // بيانات الكتب الافتراضية
+    const books = [
+      { title: "العادات السبع للناس الأكثر فعالية", desc: "كتاب تطوير ذاتي يقدم استراتيجيات للنجاح في الحياة.", category: "عام" },
+      { title: "البداية والنهاية", desc: "كتاب تاريخي وديني شهير لابن كثير.", category: "ديني" },
+      { title: "تأملات", desc: "كتاب فلسفي عميق للإمبراطور ماركوس أوريليوس.", category: "فلسفي" },
+      { title: "العلم وأزمة الضمير الحديث", desc: "كتاب يناقش العلاقة بين العلم والأخلاق.", category: "علمي" },
+      { title: "نظرية الفستق", desc: "كتاب تنمية ذاتية مشهور.", category: "عام" },
+      { title: "رياض الصالحين", desc: "مجموعة من الأحاديث النبوية الشريفة.", category: "ديني" },
+      { title: "الجمهورية", desc: "تحفة فلسفية لأفلاطون حول العدالة والمجتمع.", category: "فلسفي" },
+      { title: "تاريخ العلم", desc: "كتاب يستعرض تطور العلوم عبر العصور.", category: "علمي" },
+      { title: "في ظلال القرآن", desc: "تفسير معاصر للقرآن الكريم لسيد قطب.", category: "ديني" },
+    ];
 
-    <script>
-        function showSection(id) {
-            document.getElementById('section1').style.display = 'none';
-            document.getElementById('section2').style.display = 'none';
-            document.getElementById('section3').style.display = 'none';
-            document.getElementById(id).style.display = 'block';
+    const booksSection = document.getElementById('booksSection');
+    const categoryBoxes = document.querySelectorAll('.category-box');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderBooks(bookList, searchValue = '') {
+      booksSection.innerHTML = '';
+      if (!bookList.length) {
+        // رسالة لا يوجد نتائج
+        if(searchValue.trim() !== '') {
+          booksSection.innerHTML = `<div class="no-results">لم يتم العثور على نتائج للبحث.</div>`;
+        } else {
+          booksSection.innerHTML = `<div class="no-results">لا توجد كتب في هذا القسم حالياً.</div>`;
         }
-    </script>
+        return;
+      }
+      bookList.forEach(book => {
+        const card = document.createElement('div');
+        card.className = 'book-card';
+        card.innerHTML = `
+          <span class="category">${book.category}</span>
+          <h3>${book.title}</h3>
+          <p>${book.desc}</p>
+        `;
+        booksSection.appendChild(card);
+      });
+    }
+
+    // تصفية حسب القسم
+    categoryBoxes.forEach(box => {
+      box.onclick = () => {
+        categoryBoxes.forEach(b => b.classList.remove('active'));
+        box.classList.add('active');
+        updateBooksDisplay();
+      };
+    });
+
+    // البحث
+    searchInput.addEventListener('input', updateBooksDisplay);
+
+    function updateBooksDisplay() {
+      const searchValue = searchInput.value.trim();
+      const cat = document.querySelector('.category-box.active').dataset.category;
+      let filtered = cat === 'all' ? books : books.filter(b => b.category === cat);
+      if (searchValue) {
+        // البحث بالاسم فقط وليس الوصف
+        filtered = filtered.filter(b => b.title.includes(searchValue));
+      }
+      renderBooks(filtered, searchValue);
+    }
+
+    // عرض جميع الكتب عند التحميل
+    renderBooks(books);
+  </script>
 </body>
 </html>
