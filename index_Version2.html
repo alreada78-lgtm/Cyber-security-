@@ -25,31 +25,26 @@
       font-size: 2.5rem;
       letter-spacing: 2px;
     }
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 22px;
-      max-width: 800px;
-      margin: 30px auto 13px auto;
-      padding: 0 16px;
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 20px 0 10px 0;
     }
-    .category-box {
+    nav button {
       background: #fff;
       color: #4e54c8;
-      border-radius: 18px;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 28px;
       font-size: 1.1rem;
-      font-weight: 700;
-      padding: 22px 0;
-      text-align: center;
       cursor: pointer;
-      box-shadow: 0 2px 8px #e3e6e880;
-      border: 2.5px solid #fff;
-      transition: background 0.22s, color 0.22s, border 0.22s;
+      font-weight: 700;
+      transition: background 0.2s, color 0.2s;
     }
-    .category-box.active, .category-box:hover {
+    nav button.active, nav button:hover {
       background: #4e54c8;
       color: #fff;
-      border-color: #8f94fb;
     }
     .search-box {
       display: flex;
@@ -80,7 +75,7 @@
       background: #fff;
       border-radius: 22px;
       box-shadow: 0 3px 12px #e3e6e8b3;
-      padding: 25px 18px 20px 18px;
+      padding: 25px 18px 22px 18px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -108,16 +103,9 @@
       color: #555;
       font-size: 0.98rem;
     }
-    .no-results {
-      text-align: center;
-      width: 100%;
-      color: #ca3c3c;
-      font-size: 1.2rem;
-      padding: 60px 0 40px 0;
-    }
     @media (max-width: 600px) {
       header h1 { font-size: 1.5rem;}
-      .categories-grid { grid-template-columns: 1fr 1fr; gap:10px;}
+      nav { gap: 10px;}
       .search-box input { width: 95vw;}
       .books-section { grid-template-columns: 1fr;}
     }
@@ -126,13 +114,13 @@
 <body>
   <header>
     <h1>مكتبة إلكترونية حديثة</h1>
-    <div class="categories-grid" id="categoriesGrid">
-      <div class="category-box active" data-category="all">كل الكتب</div>
-      <div class="category-box" data-category="عام">كتب عامة</div>
-      <div class="category-box" data-category="ديني">كتب دينية</div>
-      <div class="category-box" data-category="فلسفي">كتب فلسفية</div>
-      <div class="category-box" data-category="علمي">كتب علمية</div>
-    </div>
+    <nav>
+      <button class="active" data-category="all">الكل</button>
+      <button data-category="عام">كتب عامة</button>
+      <button data-category="ديني">كتب دينية</button>
+      <button data-category="فلسفي">كتب فلسفية</button>
+      <button data-category="علمي">كتب علمية</button>
+    </nav>
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="ابحث عن كتاب...">
     </div>
@@ -157,18 +145,13 @@
     ];
 
     const booksSection = document.getElementById('booksSection');
-    const categoryBoxes = document.querySelectorAll('.category-box');
+    const navBtns = document.querySelectorAll('nav button');
     const searchInput = document.getElementById('searchInput');
 
-    function renderBooks(bookList, searchValue = '') {
+    function renderBooks(bookList) {
       booksSection.innerHTML = '';
       if (!bookList.length) {
-        // رسالة لا يوجد نتائج
-        if(searchValue.trim() !== '') {
-          booksSection.innerHTML = `<div class="no-results">لم يتم العثور على نتائج للبحث.</div>`;
-        } else {
-          booksSection.innerHTML = `<div class="no-results">لا توجد كتب في هذا القسم حالياً.</div>`;
-        }
+        booksSection.innerHTML = `<div style="text-align:center;width:100%;color:#888;font-size:1.2rem;">لا توجد كتب مطابقة</div>`;
         return;
       }
       bookList.forEach(book => {
@@ -184,27 +167,31 @@
     }
 
     // تصفية حسب القسم
-    categoryBoxes.forEach(box => {
-      box.onclick = () => {
-        categoryBoxes.forEach(b => b.classList.remove('active'));
-        box.classList.add('active');
-        updateBooksDisplay();
+    navBtns.forEach(btn => {
+      btn.onclick = () => {
+        navBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.category;
+        const filtered = cat === 'all' ? books : books.filter(b => b.category === cat);
+        const searchValue = searchInput.value.trim();
+        if (searchValue) {
+          renderBooks(filtered.filter(b => b.title.includes(searchValue) || b.desc.includes(searchValue)));
+        } else {
+          renderBooks(filtered);
+        }
       };
     });
 
     // البحث
-    searchInput.addEventListener('input', updateBooksDisplay);
-
-    function updateBooksDisplay() {
-      const searchValue = searchInput.value.trim();
-      const cat = document.querySelector('.category-box.active').dataset.category;
+    searchInput.addEventListener('input', () => {
+      const value = searchInput.value.trim();
+      const cat = document.querySelector('nav button.active').dataset.category;
       let filtered = cat === 'all' ? books : books.filter(b => b.category === cat);
-      if (searchValue) {
-        // البحث بالاسم فقط وليس الوصف
-        filtered = filtered.filter(b => b.title.includes(searchValue));
+      if (value) {
+        filtered = filtered.filter(b => b.title.includes(value) || b.desc.includes(value));
       }
-      renderBooks(filtered, searchValue);
-    }
+      renderBooks(filtered);
+    });
 
     // عرض جميع الكتب عند التحميل
     renderBooks(books);
